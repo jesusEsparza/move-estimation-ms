@@ -1,6 +1,6 @@
-import { IDiscount } from "./discount";
+import type { IDiscount } from './discount'
 
 export interface ICalculateCosts {
-    calculateDiscounts(discounts: IDiscount[]) : void;
-    CalculateTotalAmout() : number;
+  calculateDiscounts: (discounts: IDiscount[]) => void
+  calculateTotalAmout: () => number
 }

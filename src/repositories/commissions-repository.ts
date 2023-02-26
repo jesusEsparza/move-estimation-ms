@@ -1,18 +1,22 @@
-import { Service } from "typedi";
+import { Service } from 'typedi'
+type CommmissionType = Record<string, any>
 
 @Service()
-export class CommissionRepository
-{
-    private data: {[key: string]: any}[] = [
-        { state: 'NY', normal: .25, premium: .35 },
-        { state: 'CA', normal: .23, premium: .33 },
-        { state: 'AZ', normal: .20, premium: .30 },
-        { state: 'TX', normal: .18, premium: .28 },
-        { state: 'OH', normal: .15, premium: .25 },
-    ]
-    getCommission(state: string, estimationType: string) : number
-    {
-        const item = this.data.find((i) => i.state == state) || {};
-        return item[estimationType];
+export class CommissionRepository {
+  private readonly data: CommmissionType[] = [
+    { state: 'NY', normal: 0.25, premium: 0.35 },
+    { state: 'CA', normal: 0.23, premium: 0.33 },
+    { state: 'AZ', normal: 0.2, premium: 0.3 },
+    { state: 'TX', normal: 0.18, premium: 0.28 },
+    { state: 'OH', normal: 0.15, premium: 0.25 }
+  ]
+
+  getCommission (state: string, estimationType: string): number {
+    const item = this.data.find((i) => i.state === state)
+    if (item == null) {
+      return 0
     }
+
+    return item[estimationType]
+  }
 }
