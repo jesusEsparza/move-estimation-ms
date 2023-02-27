@@ -1,7 +1,6 @@
 import 'reflect-metadata'
 import Container from 'typedi'
-import { EstimationRequest } from '../../src/api/schemas/schema_definition'
-import { MoveEstimation } from '../../src/models/move-estimation'
+import { type EstimationRequest } from '../../src/api/schemas/schema_definition'
 import CalculateMoveEstimation from '../../src/usecases/calculate-move-estimation'
 
 describe('test calcule move estimation using normal estimation type', () => {
