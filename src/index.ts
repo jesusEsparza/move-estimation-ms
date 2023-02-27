@@ -1,9 +1,57 @@
-import 'reflect-metadata'
-import Container from 'typedi'
-import { MoveEstimation } from './models/move-estimation'
+/** src/index.ts */
+import 'dotenv/config'
 
-import CalculateMoveEstimation from './usecases/calculate-move-estimation'
+import http from 'http'
+import express, { type Express } from 'express'
+import { queryParser } from 'express-query-parser'
+import morgan from 'morgan'
+import routes from './api/routes/estimations-route'
+import ValidateSecureRequst from './api/middleware/validate-secure-request'
+import ValidateIpClient from './api/middleware/validate-ip-address'
 
-let calculateMoveEstimation = Container.get(CalculateMoveEstimation)
-const estimation = new MoveEstimation('TX', 'normal', 25, 100)
-console.log(calculateMoveEstimation.execute(estimation))
+const router: Express = express()
+
+/** QueryParser */
+router.use(queryParser({
+  parseNumber: true
+}))
+/** Logging */
+router.use(morgan('dev'))
+/** Parse the request */
+router.use(express.urlencoded({ extended: false }))
+/** Takes care of JSON data */
+router.use(express.json())
+
+/** RULES OF OUR API */
+router.use((req, res, next) => {
+  // set the CORS policy
+  res.header('Access-Control-Allow-Origin', '*')
+  // set the CORS headers
+  res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization')
+  // set the CORS method headers
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST')
+    return res.status(200).json({})
+  }
+  next()
+})
+
+router.use(ValidateIpClient)
+
+router.use(ValidateSecureRequst)
+
+/** Routes */
+router.use('/api', routes)
+
+/** Error handling */
+router.use((req, res, next) => {
+  const error = new Error('not found')
+  return res.status(404).json({
+    message: error.message
+  })
+})
+
+/** Server */
+const httpServer = http.createServer(router)
+const PORT: string = process.env?.PORT ?? '3030'
+httpServer.listen(+PORT, () => { console.log(`The server is running on port ${PORT}`) })

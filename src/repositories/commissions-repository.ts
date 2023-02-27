@@ -1,4 +1,5 @@
 import { Service } from 'typedi'
+import { UnsupportedUSStateException } from '../exceptions/unsupported-us-state-exception'
 type CommmissionType = Record<string, any>
 
 @Service()
@@ -14,7 +15,7 @@ export class CommissionRepository {
   getCommission (state: string, estimationType: string): number {
     const item = this.data.find((i) => i.state === state)
     if (item == null) {
-      return 0
+      throw new UnsupportedUSStateException()
     }
 
     return item[estimationType]

@@ -1,6 +1,7 @@
 import { Service } from 'typedi'
+import { type EstimationRequest } from '../api/schemas/schema_definition'
 import { type IEstimationResult } from '../interfaces/estimation-result'
-import { type MoveEstimation } from '../models/move-estimation'
+import { MoveEstimation } from '../models/move-estimation'
 import { CommissionRepository } from '../repositories/commissions-repository'
 import { DiscountsRepository } from '../repositories/discounts-repository'
 import { TaxRateRepository } from '../repositories/taxrates-repository'
@@ -14,8 +15,8 @@ class CalculateMoveEstimation {
     private readonly taxRatesRepository: TaxRateRepository
   ) {}
 
-  public execute (request: MoveEstimation): IEstimationResult {
-    this._request = request
+  public execute (request: EstimationRequest): IEstimationResult {
+    this._request = new MoveEstimation(request.state, request.estimation, request.distance, request.base_amount)
     const total = this.getApplicableCommission()
       .calculateDiscounts()
       .getTaxRate()
