@@ -1,0 +1,32 @@
+
+version: '3'
+services:
+  microservice:
+    image: move-estimation-ms
+    build: .
+    env_file:
+     - .env
+    ports:
+      - "${PORT}:${PORT}"
+
+  unit-tests:
+    image: move-estimation-ms
+    build: .
+    env_file:
+     - .env
+    entrypoint: 
+      - /bin/sh
+      - -c
+      - |
+        npm run test
+
+  lint:
+    image: move-estimation-ms
+    build: .
+    env_file:
+     - .env
+    entrypoint: 
+      - /bin/sh
+      - -c
+      - |
+        npm run lint

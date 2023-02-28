@@ -1,8 +1,21 @@
 import { Service } from 'typedi'
 import { type IDiscount } from '../interfaces/discount'
 
+/**
+ * Repository class to implement Discounts settings data source access.
+ * @public
+ */
 @Service()
 export class DiscountsRepository {
+  /**
+   * @private
+   * Applicable discounts.
+   *
+   * This array of objects is used as repository of discounts to be applicated.
+   * Using this configuration and admin user can set discounts by US State or Estimation Type
+   * and specify the rules to evaluate the conditions to check if it could be applicated.
+   *
+   */
   private readonly data: IDiscount[] = [
     {
       description:
@@ -34,7 +47,19 @@ export class DiscountsRepository {
     }
   ]
 
-  getDiscounts (state: string, estimationType: string): IDiscount[] {
+  /**
+   * @public
+   * Get the applicable discounts by US State and Estimation Type.
+   *
+   * This method filter the available discounts to be evaluated
+   * and determinte the amount of discounts.
+   *
+   * @param {string} state - US State Abbreviation
+   * @param {string} estimationType - Estimation Type: Normal or Premium
+   * @returns {array} Applicable discounts.
+   *
+   */
+  public getDiscounts (state: string, estimationType: string): IDiscount[] {
     return this.data.filter(
       (i) =>
         i.estimationType === estimationType &&

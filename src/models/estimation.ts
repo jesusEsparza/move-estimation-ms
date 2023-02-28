@@ -1,3 +1,7 @@
+/**
+ * Estimation Model Abstract calss
+ * @public
+ */
 export abstract class Estimation {
   private readonly state: string
   private readonly estimationType: string
