@@ -15,6 +15,11 @@
 						"key": "x-api-key",
 						"value": "dfba539e-3e8d-4814-ad2c-ba144c557700",
 						"type": "text"
+					},
+					{
+						"key": "ip-client",
+						"value": "201.5.5.254",
+						"type": "text"
 					}
 				],
 				"url": {
@@ -45,11 +50,6 @@
 						{
 							"key": "base_amount",
 							"value": "100"
-						},
-						{
-							"key": "a",
-							"value": "a",
-							"disabled": true
 						}
 					]
 				}
