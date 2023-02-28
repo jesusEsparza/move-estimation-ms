@@ -4,8 +4,8 @@ import { type EstimationRequest } from '../schemas/schema_definition'
 
 import 'reflect-metadata'
 import Container from 'typedi'
-import CalculateMoveEstimation from '../../usecases/calculate-move-estimation'
-import { CustomException } from '../../exceptions/custom-exception'
+import CalculateMoveEstimation from '../../app/usecases/calculate-move-estimation'
+import { CustomException } from '../../app/exceptions/custom-exception'
 
 // getting a move estimation
 const getMoveEstimation = async (req: Request<any, any, any, EstimationRequest>, res: Response, next: NextFunction): Promise<Response> => {

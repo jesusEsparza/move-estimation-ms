@@ -1,5 +1,5 @@
 import { Service } from 'typedi'
-import { type EstimationRequest } from '../api/schemas/schema_definition'
+import { type EstimationRequest } from '../../api/schemas/schema_definition'
 import { type IEstimationResult } from '../interfaces/estimation-result'
 import { MoveEstimation } from '../models/move-estimation'
 import { CommissionRepository } from '../repositories/commissions-repository'

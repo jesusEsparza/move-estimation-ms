@@ -1,7 +1,8 @@
 import 'reflect-metadata'
 import Container from 'typedi'
 import { type EstimationRequest } from '../../src/api/schemas/schema_definition'
-import CalculateMoveEstimation from '../../src/usecases/calculate-move-estimation'
+import CalculateMoveEstimation from '../../src/app/usecases/calculate-move-estimation'
+import { UnsupportedUSStateException } from '../../src/app/exceptions/unsupported-us-state-exception'
 
 describe('test calcule move estimation using normal estimation type', () => {
   const estimationType = 'normal'
@@ -177,5 +178,19 @@ describe('test calcule move estimation using premium estimation type', () => {
     const result = calculateMoveEstimation.execute(estimation)
     expect(result.total).toBe(118.75)
     expect(result.processed).toBe(ISOStringDate)
+  })
+})
+
+describe('test custom exceptions', () => {
+  const estimationType = 'premium'
+  const baseAmount = 100
+  const ISOStringDate = '2020-11-26T00:00:00.000Z'
+  const mockedData = new Date(ISOStringDate)
+  jest.spyOn(global, 'Date').mockImplementation(() => mockedData)
+
+  it('test unsupported us state excpetion', () => {
+    const calculateMoveEstimation = Container.get(CalculateMoveEstimation)
+    const estimation: EstimationRequest = { state: 'NJ', estimation: estimationType, distance: 24, base_amount: baseAmount }
+    expect(() => calculateMoveEstimation.execute(estimation)).toThrow(UnsupportedUSStateException)
   })
 })

@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "89ca3f44-a4ea-4b5d-a628-a51362d52cb3",
+		"name": "MoveEstimation API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "61336"
+	},
+	"item": [
+		{
+			"name": "Get Move Estimation",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "dfba539e-3e8d-4814-ad2c-ba144c557700",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3030/api/move/estimation?state=NY&estimation=normal&distance=25&base_amount=100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"move",
+						"estimation"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "NY"
+						},
+						{
+							"key": "estimation",
+							"value": "normal"
+						},
+						{
+							"key": "distance",
+							"value": "25"
+						},
+						{
+							"key": "base_amount",
+							"value": "100"
+						},
+						{
+							"key": "a",
+							"value": "a",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
