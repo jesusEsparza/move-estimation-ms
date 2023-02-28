@@ -32,8 +32,8 @@ The purpose of this project is implement a service to get the move estimation co
 ## Setup
 Download the project
 ```bash
-git clone https://
-cd microservice
+git clone https://github.com/jesusEsparza/move-estimation-ms.git
+cd move-estimation-ms
 ```
 
 Run the project using docker
